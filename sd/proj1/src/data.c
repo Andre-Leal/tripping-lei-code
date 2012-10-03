@@ -26,7 +26,7 @@ struct data_t *data_dup(struct data_t *data) {
     void *new_raw_data = malloc(data->datasize);
     memcpy(new_raw_data, data->data, data->datasize);
 
-    struct data_t *new_data = data_create2(data->datasize new_raw_data);
+    struct data_t *new_data = data_create2(data->datasize, new_raw_data);
 
     return new_data;
 }

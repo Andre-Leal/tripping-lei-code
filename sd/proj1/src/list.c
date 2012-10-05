@@ -49,7 +49,6 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 
 	if(list->size == 1) {
 		if (strcmp(new_node->entry->key , list->header->entry->key) < 0) {
-			printf("eu era o mais piqueno\n");
 			new_node = list->header;
 			list->header = new_node;		
 		}
@@ -63,15 +62,16 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 
     struct node_t *curr_node = list->header;
 
-	if (strcmp(new_node->entry->key , list->header->next->entry->key) < 0) {
+	if (strcmp(new_node->entry->key , curr_node->entry->key) < 0) {
         new_node->next = curr_node->next;
 		curr_node->next = new_node;
 	}
 
     while (curr_node->next != NULL) {
     	if (strcmp(new_node->entry->key , curr_node->next->entry->key) < 0) {
-            new_node->next = curr_node->next->next;
-            curr_node->next->next = new_node;
+			printf("second chance %s\n" , new_node->entry->key);
+            new_node->next = curr_node->next;
+            curr_node->next = new_node;
             list->size++;
             return 0;
         }
@@ -101,10 +101,13 @@ int list_remove(struct list_t *list, char *key) {
  */
 struct entry_t *list_get(struct list_t *list, char *key) {
 	
-	int i ;
-	for (i=0 ; i <= list->size ; i++) {
-		if (strcmp (list->header->entry->key , key) == 0)
-			return list->header->entry;
+	struct node_t *node = list->header;
+
+	while(node != NULL) {
+		if(strcmp(key , node->entry->key)==0) {
+			return node->entry;
+		}
+		node = node->next;		
 	}
 }
 

@@ -45,7 +45,7 @@ int testAddVarios() {
 	char key[16];
 	
 
-	for(i=0; i<1024; i++) {
+	for(i=0; i<14; i++) {
 		sprintf(key,"keyabc-%d",i);
 		keysize = strlen(key)+1;
 		entry[i] = entry_create(strdup(key),data_create(keysize));
@@ -62,16 +62,7 @@ int testAddVarios() {
 		result = result && (list_get(list,entry[i]->key) == entry[i]);
 	}
 
-	printf("list_%d - %s\n" , 0, list->header->entry->key);
-	printf("list_%d - %s\n" , 1, list->header->next->entry->key);
-	printf("list_%d - %s\n" , 2, list->header->next->next->entry->key);
-	printf("list_%d - %s\n" , 3, list->header->next->next->next->entry->key);
-	printf("list_%d - %s\n" , 4, list->header->next->next->next->next->entry->key);
-	printf("list_%d - %s\n" , 5, list->header->next->next->next->next->next->entry->key);
-	printf("list_%d - %s\n" , 6, list->header->next->next->next->next->next->next->entry->key);
-
-	printf("compara - %d\n" , strcmp("1" , "1023");
-
+	printf("ola - %d\n" , strcmp("10" , "2"));
 
 	list_destroy(list);
 

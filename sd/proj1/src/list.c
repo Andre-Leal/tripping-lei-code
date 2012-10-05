@@ -1,30 +1,46 @@
-#ifndef _LIST_H
-#define _LIST_H
+#include "list.h"
+#include "list-private.h"
 
-#include "entry.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
-struct list_t; /*A definir pelo grupo em list-private.h*/
 
 /* Cria uma nova lista. Em caso de erro, retorna NULL.
  */
-struct list_t *list_create();
+struct list_t *list_create() {
+	
+	struct list_t *list = (struct list_t *) malloc(sizeof(struct list_t));
+
+}
 
 /* Elimina uma lista, libertando *toda* a memoria utilizada pela
  * lista.
  * Retorna 0 (OK) ou -1 (erro)
  */
-int list_destroy(struct list_t *list);
+int list_destroy(struct list_t *list) {
+
+
+}
 
 /* Adiciona uma entry na lista. Como a lista deve ser ordenada, 
  * a nova entry deve ser colocada no local correto.
  * Retorna 0 (OK) ou -1 (erro)
  */
-int list_add(struct list_t *list, struct entry_t *entry);
+int list_add(struct list_t *list, struct entry_t *entry) {
+
+
+}
 
 /* Elimina da lista um elemento com a chave key. 
  * Retorna 0 (OK) ou -1 (erro)
  */
-int list_remove(struct list_t *list, char *key);
+int list_remove(struct list_t *list, char *key) {
+
+
+
+}
+
 
 /* Obtem um elemento da lista com a chave key. 
  * Retorna a referencia do elemento na lista (ou seja, uma alteração
@@ -32,20 +48,30 @@ int list_remove(struct list_t *list, char *key);
  * Nota: a função list_remove ou list_destroy deve ser 
  * a responsável por libertar a memoria ocupada pelo elemento.
  */
-struct entry_t *list_get(struct list_t *list, char *key);
+struct entry_t *list_get(struct list_t *list, char *key) {
+
+
+}
 
 /* Retorna o tamanho (numero de elementos) da lista 
  * Retorna -1 em caso de erro)
  */
-int list_size(struct list_t *list);
+int list_size(struct list_t *list) {
+
+
+}
 
 /* Devolve um array de char* com a cópia de todas as keys da
  * lista, com um ultimo elemento a NULL.
  */
-char **list_get_keys(struct list_t *list);
+char **list_get_keys(struct list_t *list) {
+
+
+}
 
 /* Liberta a memoria alocada por list_get_keys
  */
-void list_free_keys(char **keys);
+void list_free_keys(char **keys) {
 
-#endif
+
+}

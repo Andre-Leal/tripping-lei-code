@@ -32,9 +32,6 @@ int testAddCabeca() {
 	result = list_get(list,"abc") == entry && 
                  list_size(list) == 1;
 
-	printf("jksgk %d\n" , list_size(list) == 1);
-	printf("jksgk %d\n" , list_get(list,"abc") == entry);
-
 	list_destroy(list);
 
 	printf("Modulo list -> teste adicionar cabeca: %s\n",result?"passou":"nao passou");

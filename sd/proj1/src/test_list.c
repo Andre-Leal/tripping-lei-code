@@ -70,6 +70,8 @@ int testAddVarios() {
 	printf("list_%d - %s\n" , 5, list->header->next->next->next->next->next->entry->key);
 	printf("list_%d - %s\n" , 6, list->header->next->next->next->next->next->next->entry->key);
 
+	printf("compara - %d\n" , strcmp("1" , "1023");
+
 
 	list_destroy(list);
 

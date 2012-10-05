@@ -11,6 +11,16 @@
 struct list_t *list_create() {
 	
 	struct list_t *list = (struct list_t *) malloc(sizeof(struct list_t));
+	list->header = malloc(sizeof(struct node_t));
+	list->tail = malloc(sizeof(struct node_t));
+	list->size = 0;
+
+	if( !list || !list->header || !list->tail) {
+		perror("Error malloc");	
+		return NULL;	
+	}
+
+	return list;	
 
 }
 
@@ -58,6 +68,7 @@ struct entry_t *list_get(struct list_t *list, char *key) {
  */
 int list_size(struct list_t *list) {
 
+	return list->size;
 
 }
 

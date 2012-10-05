@@ -41,17 +41,62 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 	struct node_t *new_node = (struct node_t *) malloc(sizeof(struct node_t));
 	new_node->entry = entry;	
 
-	if (find_place_to_insert (list->header , new_node) ) {
+    if (list->size == 0) {
+        list->header = new_node;
+        list->size++;
+        return 0;
+    }
+    else {
+        struct node_t *curr_node = list->header;
+        while (curr_node != NULL) {
+            if (strcmp(new_node->entry->key , curr_node->entry->key) > 0) {
+                new_node->next = curr_node->next;
+                curr_node->next = new_node;
+                list->size++;
+                return 0;
+            }
+        }
+        return -1;
+    }
+
+    /*if (find_place_to_insert (list->header , new_node) ) {
 		list->size++;
 		return 0;
 	}
 	
 	return 1;
+    */
 
 }
 
 int find_place_to_insert (struct node_t *node , struct node_t *new_node) {
-
+    /* TODO: qual era o problema aqui?
+     * o problema eh que nao te esquecas que isto em C eh tudo de muito baixo
+     * nivel...
+     * O que quero dizer com isto eh a expressao  node = new_node  eh marota!
+     * Nao te esquecas que como argumento estamos a receber um ponteiro, nada
+     * mais do que isso! E o que eh um ponteiro? Eh simplesmente um tipo
+     * primitivo, uma especie de inteiro que aponta para algures na memoria
+     * nao eh um objecto em si...
+     *
+     * Eu percebo o que querias fazer... eh como se passases o objecto do
+     * header aqui como argumento *node e depois todo fanfarrao achavas que
+     * node=new_node ia actualizar o list->header tambem xD. Mas nao, na verdade
+     * este node=new_node que fizeste aqui, ficou-se apenas por este metodo e
+     * depois vai com os passarinhos. Tal como todos os argumentos dos metodos
+     *
+     * Tens sempre de fazer explicitamente list->header = <...>
+     * Porque o que queres eh actualizar o ponteiro da estrutura list.
+     *
+     * Epa, isto funcionava da forma que estavas aqui a pensar se usasses
+     * ponteiros que apontam para ponteiros. Ou seja, se o conteudo de list->header
+     * fosse um ponteiro para o verdadeiro objecto node
+     * Isso assim ja poderias fazer neste metodo:
+     *      *node (sim, com o asterisco!) = new_node;
+     *
+     *  Entendes porque?
+     *
+     */
 	if (node == NULL) {
 		node = new_node;
 		node->next = NULL;

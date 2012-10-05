@@ -32,6 +32,9 @@ int testAddCabeca() {
 	result = list_get(list,"abc") == entry && 
                  list_size(list) == 1;
 
+	printf("jksgk %d\n" , list_size(list) == 1);
+	printf("jksgk %d\n" , list_get(list,"abc") == entry);
+
 	list_destroy(list);
 
 	printf("Modulo list -> teste adicionar cabeca: %s\n",result?"passou":"nao passou");
@@ -187,7 +190,7 @@ int main() {
 	score += testListaVazia();
 
 	score += testAddCabeca();
-
+/*
 	score += testAddVarios();
 
 	score += testRemoveCabeca();
@@ -197,7 +200,7 @@ int main() {
 	score += testRemoveMeio();
 
 	score += testGetKeys();
-
+*/
 	printf("Resultados do teste do modulo list: %d/7\n",score);
 
 	return score;

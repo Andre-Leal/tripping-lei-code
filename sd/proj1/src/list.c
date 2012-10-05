@@ -12,11 +12,11 @@ struct list_t *list_create() {
 	
 	struct list_t *list = (struct list_t *) malloc(sizeof(struct list_t));
 	list->header = malloc(sizeof(struct node_t));
-	list->tail = malloc(sizeof(struct node_t));
+//	list->tail = malloc(sizeof(struct node_t));
 	list->size = 0;
 
-	if( !list || !list->header || !list->tail) {
-		perror("Error malloc");	
+	if( !list || !list->header) {
+		perror("Error malloc\n");	
 		return NULL;	
 	}
 
@@ -30,6 +30,9 @@ struct list_t *list_create() {
  */
 int list_destroy(struct list_t *list) {
 
+	free(list->header);
+//	free(list->tail);
+	free(list);
 
 }
 
@@ -39,8 +42,49 @@ int list_destroy(struct list_t *list) {
  */
 int list_add(struct list_t *list, struct entry_t *entry) {
 
+	struct node_t *new_node = (struct node_t *) malloc(sizeof(struct node_t));
+	new_node->entry = entry;	
+
+	if (find_place_to_insert (list->header , new_node) ) {
+		list->size++;
+		return 0;
+	}
+	
+	return 1;
 
 }
+
+int find_place_to_insert (struct node_t *node , struct node_t *new_node) {
+
+	if (!node) {
+		node = new_node;
+		return 1;
+	}
+
+
+/*
+	int cmp = strcmp(new_node->entry->key , node->entry->key);
+
+	if (cmp == 0) {
+		node->entry->value = new_node->entry->value;
+		return 1;		
+	}
+
+	if (cmp < 0) {
+		new_node->next = node;
+		node = node;
+		return 1;		
+	}
+
+	if (cmp > 0) {
+		find_place_to_insert (node->next , new_node);
+	}
+*/
+
+	return 0;
+}
+
+
 
 /* Elimina da lista um elemento com a chave key. 
  * Retorna 0 (OK) ou -1 (erro)
@@ -60,7 +104,11 @@ int list_remove(struct list_t *list, char *key) {
  */
 struct entry_t *list_get(struct list_t *list, char *key) {
 
-
+	int i ;
+	for (i = 0 ; i<=list->size ; i++) {
+		if (strcmp (list->header->entry->key , key) == 0)
+			return list->header->entry;
+	}
 }
 
 /* Retorna o tamanho (numero de elementos) da lista 

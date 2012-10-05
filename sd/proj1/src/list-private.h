@@ -19,7 +19,7 @@ list that has an header a tail and the size of the list.
 struct list_t {
 
 	struct node_t *header;
-	struct node_t *tail;
+//	struct node_t *tail;	//not sure if needed
 	int size;
 
 };

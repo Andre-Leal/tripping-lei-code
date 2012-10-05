@@ -62,6 +62,15 @@ int testAddVarios() {
 		result = result && (list_get(list,entry[i]->key) == entry[i]);
 	}
 
+	printf("list_%d - %s\n" , 0, list->header->entry->key);
+	printf("list_%d - %s\n" , 1, list->header->next->entry->key);
+	printf("list_%d - %s\n" , 2, list->header->next->next->entry->key);
+	printf("list_%d - %s\n" , 3, list->header->next->next->next->entry->key);
+	printf("list_%d - %s\n" , 4, list->header->next->next->next->next->entry->key);
+	printf("list_%d - %s\n" , 5, list->header->next->next->next->next->next->entry->key);
+	printf("list_%d - %s\n" , 6, list->header->next->next->next->next->next->next->entry->key);
+
+
 	list_destroy(list);
 
 	printf("Modulo list -> teste adicionar varios: %s\n",result?"passou":"nao passou");
@@ -187,9 +196,9 @@ int main() {
 	score += testListaVazia();
 
 	score += testAddCabeca();
-/*
-	score += testAddVarios();
 
+	score += testAddVarios();
+/*
 	score += testRemoveCabeca();
 
 	score += testRemoveCauda();

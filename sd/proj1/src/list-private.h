@@ -1,5 +1,5 @@
-#ifndef _LIST_H
-#define _LIST_H
+#ifndef _LIST_PRIVATE_H
+#define _LIST_PRIVATE_H
 
 #include "entry.h"
 

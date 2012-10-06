@@ -12,6 +12,7 @@ struct list_t *list_create() {
 	
 	struct list_t *list = (struct list_t *) malloc(sizeof(struct list_t));
 	list->size = 0;
+	list->header = NULL;
 
 	if( !list) {
 		perror("Error malloc\n");	
@@ -28,7 +29,20 @@ struct list_t *list_create() {
  */
 int list_destroy(struct list_t *list) {
 
+
+	erase_all_memory(list->header);
 	free(list);
+	
+}
+
+void erase_all_memory (struct node_t *node) {
+	
+	if (node != NULL) {
+		erase_all_memory(node->next);
+		entry_destroy(node->entry);
+		free(node);
+	}
+	
 
 }
 
@@ -40,6 +54,7 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 
 	struct node_t *new_node = (struct node_t *) malloc(sizeof(struct node_t));
 	new_node->entry = entry;
+	new_node->next = NULL;
 
 	//Add if list is empty
     if (list->size == 0) {
@@ -62,7 +77,8 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 		return 0;
 	}
 
-    struct node_t *curr_node = list->header;
+    struct node_t *curr_node;
+	curr_node = list->header;
 
 	if (strcmp(new_node->entry->key , curr_node->entry->key) < 0) {
         new_node->next = curr_node->next;
@@ -174,5 +190,12 @@ char **list_get_keys(struct list_t *list) {
  */
 void list_free_keys(char **keys) {
 
+	int i = 0;
+	
+	while(keys[i] != NULL) {
+		free(keys[i]);
+		i++;
+	}
+	free(keys);
 
 }

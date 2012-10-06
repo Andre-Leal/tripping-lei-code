@@ -194,9 +194,9 @@ int main() {
 	score += testRemoveCabeca();
 
 	score += testRemoveCauda();
-/*
-	score += testRemoveMeio();
 
+	score += testRemoveMeio();
+/*
 	score += testGetKeys();
 */
 	printf("Resultados do teste do modulo list: %d/7\n",score);

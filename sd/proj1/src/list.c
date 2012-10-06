@@ -29,12 +29,13 @@ struct list_t *list_create() {
  */
 int list_destroy(struct list_t *list) {
 
-
 	erase_all_memory(list->header);
 	free(list);
-	
 }
 
+/*
+Method that recursively frees all the memory space reserved.
+*/
 void erase_all_memory (struct node_t *node) {
 	
 	if (node != NULL) {
@@ -42,8 +43,6 @@ void erase_all_memory (struct node_t *node) {
 		entry_destroy(node->entry);
 		free(node);
 	}
-	
-
 }
 
 /* Adiciona uma entry na lista. Como a lista deve ser ordenada, 
@@ -110,30 +109,15 @@ int list_remove(struct list_t *list, char *key) {
 
 	if (list->size == 0) {return -1;}
 	
-	if (list->size == 1) {
-		if (strcmp(curr_node->entry->key , key) == 0) {
-			curr_node = NULL;
-			list->size--;
-			return 0;
-		}
-		else { return -1;}
-	}
-
-	if (strcmp(curr_node->entry->key , key) == 0) {
-		curr_node = curr_node->next;
-		list->size--;
-		return 0;
-	}
-
-
-	while (curr_node->next != NULL) {
-		if(strcmp(key , curr_node->next->entry->key)==0) {
-			curr_node->next = curr_node->next->next;
+	while (curr_node != NULL) {
+		if(strcmp(key , curr_node->entry->key)==0) {
+			curr_node = curr_node->next;
 			list->size--;
 			return 0;
 		}
 		curr_node = curr_node->next;			
 	}
+	
 	return -1;
 
 

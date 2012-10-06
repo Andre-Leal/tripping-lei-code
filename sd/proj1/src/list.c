@@ -153,8 +153,7 @@ char **list_get_keys(struct list_t *list) {
     struct node_t *node = list->header;
     int i;
     for(i=0;i<list->size;i++) {
-        array_key[i] = malloc(strlen(node->entry->key)*sizeof(char));
-        strcpy(array_key[i] , node->entry->key);
+        array_key[i] = strdup(node->entry->key);
         node = node->next;
     }
     array_key[i] = NULL;

@@ -153,21 +153,37 @@ int testGetKeys() {
 	char **keys;
 	struct entry_t *e1 = entry_create(strdup("abc"),data_create(5)),
                        *e2 = entry_create(strdup("def"),data_create(5)),
-                       *e3 = entry_create(strdup("ghi"),data_create(5));
+                       *e3 = entry_create(strdup("ghi"),data_create(5)),
+                       *e4 = entry_create(strdup("jkl"),data_create(5)),
+                       *e5 = entry_create(strdup("mn0"),data_create(5)),
+                       *e6 = entry_create(strdup("pqr"),data_create(5));
 	memcpy(e1->value->data,"abc1",5);
 	memcpy(e2->value->data,"def1",5);
 	memcpy(e3->value->data,"ghi1",5);
+	memcpy(e4->value->data,"jkl1",5);
+	memcpy(e5->value->data,"mn01",5);
+	memcpy(e6->value->data,"pqr1",5);
 
-	list_add(list,e1);
+	list_add(list,e6);
 	list_add(list,e2);
+	list_add(list,e4);
 	list_add(list,e3);
+	list_add(list,e5);
+	list_add(list,e1);
 
 	keys = list_get_keys(list);
+    int i;
+    for (i=0; i<list->size; i++) {
+        printf("* %s\n", keys[i]);
+    }
 
 	result = strcmp(keys[0],e1->key) == 0 && keys[0] != e1->key &&
                  strcmp(keys[1],e2->key) == 0 && keys[1] != e2->key && 
                  strcmp(keys[2],e3->key) == 0 && keys[2] != e3->key && 
-                 keys[3] == NULL;
+                 strcmp(keys[3],e4->key) == 0 && keys[3] != e4->key && 
+                 strcmp(keys[4],e5->key) == 0 && keys[4] != e5->key && 
+                 strcmp(keys[5],e6->key) == 0 && keys[5] != e6->key && 
+                 keys[6] == NULL;
 
 	list_free_keys(keys);
 

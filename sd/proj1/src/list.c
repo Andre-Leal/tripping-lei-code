@@ -39,14 +39,16 @@ int list_destroy(struct list_t *list) {
 int list_add(struct list_t *list, struct entry_t *entry) {
 
 	struct node_t *new_node = (struct node_t *) malloc(sizeof(struct node_t));
-	new_node->entry = entry;	
+	new_node->entry = entry;
 
+	//Add if list is empty
     if (list->size == 0) {
         list->header = new_node;
         list->size++;
         return 0;
     }
 
+	//add if list has onde element
 	if(list->size == 1) {
 		if (strcmp(new_node->entry->key , list->header->entry->key) < 0) {
 			new_node = list->header;
@@ -69,7 +71,6 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 
     while (curr_node->next != NULL) {
     	if (strcmp(new_node->entry->key , curr_node->next->entry->key) < 0) {
-			printf("second chance %s\n" , new_node->entry->key);
             new_node->next = curr_node->next;
             curr_node->next = new_node;
             list->size++;
@@ -77,8 +78,9 @@ int list_add(struct list_t *list, struct entry_t *entry) {
         }
 		curr_node = curr_node->next;
     }
-
+ 	list->size++;
 	curr_node->next = new_node;
+	return 0;
 
 }
 
@@ -88,6 +90,35 @@ int list_add(struct list_t *list, struct entry_t *entry) {
  */
 int list_remove(struct list_t *list, char *key) {
 
+	struct node_t *curr_node = list->header;
+
+	if (list->size == 0) {return -1;}
+	
+	if (list->size == 1) {
+		if (strcmp(curr_node->entry->key , key) == 0) {
+			curr_node = NULL;
+			list->size--;
+			return 0;
+		}
+		else { return -1;}
+	}
+
+	if (strcmp(curr_node->entry->key , key) == 0) {
+		curr_node = curr_node->next;
+		list->size--;
+		return 0;
+	}
+
+
+	while (curr_node->next != NULL) {
+		if(strcmp(key , curr_node->next->entry->key)==0) {
+			curr_node->next = curr_node->next->next;
+			list->size--;
+			return 0;
+		}
+		curr_node = curr_node->next;			
+	}
+	return -1;
 
 
 }
@@ -124,7 +155,18 @@ int list_size(struct list_t *list) {
  * lista, com um ultimo elemento a NULL.
  */
 char **list_get_keys(struct list_t *list) {
+	
+	char **array_key = malloc((list->size+1) * sizeof(char *));
+	
+	struct node_t *node = list->header;
+	int i;
+	for(i=0;i<list->size;i++) {
+		array_key[i] = malloc(strlen(node->entry->key)*sizeof(char *));
+		strcpy(array_key[i] , node->entry->key);
+		node = node->next;
+	}
 
+	return array_key;
 
 }
 

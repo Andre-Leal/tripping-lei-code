@@ -45,7 +45,7 @@ int testAddVarios() {
 	char key[16];
 	
 
-	for(i=0; i<14; i++) {
+	for(i=0; i<1024; i++) {
 		sprintf(key,"keyabc-%d",i);
 		keysize = strlen(key)+1;
 		entry[i] = entry_create(strdup(key),data_create(keysize));
@@ -61,8 +61,6 @@ int testAddVarios() {
 		assert(list_get(list,entry[i]->key) == entry[i]);
 		result = result && (list_get(list,entry[i]->key) == entry[i]);
 	}
-
-	printf("ola - %d\n" , strcmp("10" , "2"));
 
 	list_destroy(list);
 
@@ -171,6 +169,7 @@ int testGetKeys() {
                  strcmp(keys[2],e3->key) == 0 && keys[2] != e3->key && 
                  keys[3] == NULL;
 
+
 	list_free_keys(keys);
 
 	list_destroy(list);
@@ -191,7 +190,7 @@ int main() {
 	score += testAddCabeca();
 
 	score += testAddVarios();
-/*
+
 	score += testRemoveCabeca();
 
 	score += testRemoveCauda();
@@ -199,7 +198,7 @@ int main() {
 	score += testRemoveMeio();
 
 	score += testGetKeys();
-*/
+
 	printf("Resultados do teste do modulo list: %d/7\n",score);
 
 	return score;

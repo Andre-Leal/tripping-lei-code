@@ -41,11 +41,11 @@ int testAddCabeca() {
 int testAddVarios() {
 	int result,i,keysize;
 	struct list_t *list = list_create();
-	struct entry_t *entry[4];
+	struct entry_t *entry[1024];
 	char key[16];
 	
 
-	for(i=0; i<4; i++) {
+	for(i=0; i<1024; i++) {
 		sprintf(key,"keyabc-%d",i);
 		keysize = strlen(key)+1;
 		entry[i] = entry_create(strdup(key),data_create(keysize));
@@ -54,10 +54,10 @@ int testAddVarios() {
 		list_add(list,entry[i]);
 	}
 
-	assert(list_size(list) == 4);
-	result = (list_size(list) == 4);
+	assert(list_size(list) == 1024);
+	result = (list_size(list) == 1024);
 
-	for(i=0; i<4; i++) {
+	for(i=0; i<1024; i++) {
 		assert(list_get(list,entry[i]->key) == entry[i]);
 		result = result && (list_get(list,entry[i]->key) == entry[i]);
 	}
@@ -169,7 +169,6 @@ int testGetKeys() {
                  strcmp(keys[2],e3->key) == 0 && keys[2] != e3->key && 
                  keys[3] == NULL;
 
-
 	list_free_keys(keys);
 
 	list_destroy(list);
@@ -196,9 +195,9 @@ int main() {
 	score += testRemoveCauda();
 
 	score += testRemoveMeio();
-/*
+
 	score += testGetKeys();
-*/
+
 	printf("Resultados do teste do modulo list: %d/7\n",score);
 
 	return score;

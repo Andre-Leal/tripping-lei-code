@@ -119,8 +119,6 @@ int list_remove(struct list_t *list, char *key) {
 	}
 	
 	return -1;
-
-
 }
 
 
@@ -165,9 +163,9 @@ char **list_get_keys(struct list_t *list) {
 		strcpy(array_key[i] , node->entry->key);
 		node = node->next;
 	}
-
+	array_key[i] = NULL;
+	
 	return array_key;
-
 }
 
 /* Liberta a memoria alocada por list_get_keys

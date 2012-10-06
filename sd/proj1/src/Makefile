@@ -9,3 +9,6 @@ data: data.c test_data.c
 
 entry: data.c entry.c test_entry.c
 	gcc -w data.c entry.c test_entry.c -o entry
+
+clean:
+	@rm -f list data entry

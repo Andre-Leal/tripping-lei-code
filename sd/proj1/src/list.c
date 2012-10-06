@@ -62,16 +62,11 @@ int list_add(struct list_t *list, struct entry_t *entry) {
         return 0;
     }
 
-    //add if list has onde element
-    if(list->size == 1) {
-        if (strcmp(new_node->entry->key , list->header->entry->key) < 0) {
-            new_node = list->header;
-            list->header = new_node;
-        }
-        else {
-            new_node->next = list->header->next;
-            list->header->next = new_node;
-        }
+    // the new element goes to the header
+    if(strcmp(new_node->entry->key, list->header->entry->key) < 0) {
+        new_node->next = list->header;
+        list->header = new_node;
+
         list->size++;
         return 0;
     }
@@ -79,24 +74,23 @@ int list_add(struct list_t *list, struct entry_t *entry) {
     struct node_t *curr_node;
     curr_node = list->header;
 
-    if (strcmp(new_node->entry->key , curr_node->entry->key) < 0) {
-        new_node->next = curr_node->next;
-        curr_node->next = new_node;
-    }
+    while (1) {
+        if (curr_node->next == NULL) {
+            curr_node->next = new_node;
+            break;
+        }
 
-    while (curr_node->next != NULL) {
         if (strcmp(new_node->entry->key , curr_node->next->entry->key) < 0) {
             new_node->next = curr_node->next;
             curr_node->next = new_node;
-            list->size++;
-            return 0;
+            break;
         }
+
         curr_node = curr_node->next;
     }
-    list->size++;
-    curr_node->next = new_node;
-    return 0;
 
+    list->size++;
+    return 0;
 }
 
 
@@ -159,7 +153,7 @@ char **list_get_keys(struct list_t *list) {
     struct node_t *node = list->header;
     int i;
     for(i=0;i<list->size;i++) {
-        array_key[i] = malloc(strlen(node->entry->key)*sizeof(char *));
+        array_key[i] = malloc(strlen(node->entry->key)*sizeof(char));
         strcpy(array_key[i] , node->entry->key);
         node = node->next;
     }

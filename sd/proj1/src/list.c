@@ -5,23 +5,18 @@
 #include <stdlib.h>
 #include <string.h>
 
-/*
-TODO: O teu add funciona melhor que o meu, não sei porque nem me apetece agora ir procurar. Acho que já só falta ver a parte dos returns. Por exemplo no list_destroy é suposto retornar 0 ou -1 se der erro (não sei quando da erro,xD);
-*/
-
-
 /* Cria uma nova lista. Em caso de erro, retorna NULL.
 */
 struct list_t *list_create() {
 
     struct list_t *list = (struct list_t *) malloc(sizeof(struct list_t));
-    list->size = 0;
-    list->header = NULL;
-
-    if( !list) {
+    if(!list) {
         perror("Error malloc\n");
         return NULL;
     }
+
+    list->size = 0;
+    list->header = NULL;
 
     return list;
 
@@ -32,6 +27,8 @@ struct list_t *list_create() {
  * Retorna 0 (OK) ou -1 (erro)
  */
 int list_destroy(struct list_t *list) {
+    if (!list)
+        return -1;
 
     erase_all_memory(list->header);
     free(list);
@@ -41,8 +38,6 @@ int list_destroy(struct list_t *list) {
  * Method that recursively frees all the memory space reserved.
  */
 void erase_all_memory (struct node_t *node) {
-
-//TODO falta retornar aqui qualquer coisa...
 
     if (node != NULL) {
         erase_all_memory(node->next);
@@ -57,9 +52,10 @@ void erase_all_memory (struct node_t *node) {
  */
 int list_add(struct list_t *list, struct entry_t *entry) {
 
-//TODO mais uma vez falta o retornar em casa de dar barraca (que não sei quando é que pode dar lol)
+    if (!list || !entry)
+        return -1;
 
-	// Creating a new node
+    // Creating a new node
     struct node_t *new_node = (struct node_t *) malloc(sizeof(struct node_t));
     new_node->entry = entry;
     new_node->next = NULL;
@@ -81,9 +77,9 @@ int list_add(struct list_t *list, struct entry_t *entry) {
 
     struct node_t *curr_node = list->header;
 
-	// The list has at least 1 member, and it is minor than the new node.
+    // The list has at least 1 member, and it is minor than the new node.
     while (1) {
-		// The list only has 1 member
+        // The list has only 1 member
         if (curr_node->next == NULL) {
             curr_node->next = new_node;
             break;
@@ -107,6 +103,9 @@ int list_add(struct list_t *list, struct entry_t *entry) {
  * Retorna 0 (OK) ou -1 (erro)
  */
 int list_remove(struct list_t *list, char *key) {
+
+    if (!list || !key)
+        return -1;
 
     struct node_t *curr_node = list->header;
 
@@ -133,6 +132,9 @@ int list_remove(struct list_t *list, char *key) {
  */
 struct entry_t *list_get(struct list_t *list, char *key) {
 
+    if (!list || !key)
+        return -1;
+
     struct node_t *node = list->header;
 
     while(node != NULL) {
@@ -141,23 +143,24 @@ struct entry_t *list_get(struct list_t *list, char *key) {
         }
         node = node->next;
     }
-	return NULL;
-	
 }
 
 /* Retorna o tamanho (numero de elementos) da lista 
  * Retorna -1 em caso de erro)
  */
 int list_size(struct list_t *list) {
-//TODO la vamos nós ao retornar -1 -.-
+    if (!list)
+        return -1;
     return list->size;
-
 }
 
 /* Devolve um array de char* com a cópia de todas as keys da
  * lista, com um ultimo elemento a NULL.
  */
 char **list_get_keys(struct list_t *list) {
+
+    if (!list)
+        return -1;
 
     char **array_key = malloc((list->size+1) * sizeof(char *));
 
@@ -175,6 +178,9 @@ char **list_get_keys(struct list_t *list) {
 /* Liberta a memoria alocada por list_get_keys
 */
 void list_free_keys(char **keys) {
+
+    if (!keys)
+        return -1;
 
     int i = 0;
 

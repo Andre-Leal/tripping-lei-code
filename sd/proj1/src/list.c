@@ -5,6 +5,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+/*
+TODO: O teu add funciona melhor que o meu, não sei porque nem me apetece agora ir procurar. Acho que já só falta ver a parte dos returns. Por exemplo no list_destroy é suposto retornar 0 ou -1 se der erro (não sei quando da erro,xD);
+*/
+
 
 /* Cria uma nova lista. Em caso de erro, retorna NULL.
 */
@@ -34,9 +38,11 @@ int list_destroy(struct list_t *list) {
 }
 
 /*
-   Method that recursively frees all the memory space reserved.
-   */
+ * Method that recursively frees all the memory space reserved.
+ */
 void erase_all_memory (struct node_t *node) {
+
+//TODO falta retornar aqui qualquer coisa...
 
     if (node != NULL) {
         erase_all_memory(node->next);
@@ -51,30 +57,33 @@ void erase_all_memory (struct node_t *node) {
  */
 int list_add(struct list_t *list, struct entry_t *entry) {
 
+//TODO mais uma vez falta o retornar em casa de dar barraca (que não sei quando é que pode dar lol)
+
+	// Creating a new node
     struct node_t *new_node = (struct node_t *) malloc(sizeof(struct node_t));
     new_node->entry = entry;
     new_node->next = NULL;
 
-    //Add if list is empty
+    // Add if list is empty
     if (list->size == 0) {
         list->header = new_node;
         list->size++;
         return 0;
     }
 
-    // the new element goes to the header
+    // The new element goes to the header
     if(strcmp(new_node->entry->key, list->header->entry->key) < 0) {
         new_node->next = list->header;
         list->header = new_node;
-
         list->size++;
         return 0;
     }
 
-    struct node_t *curr_node;
-    curr_node = list->header;
+    struct node_t *curr_node = list->header;
 
+	// The list has at least 1 member, and it is minor than the new node.
     while (1) {
+		// The list only has 1 member
         if (curr_node->next == NULL) {
             curr_node->next = new_node;
             break;
@@ -132,13 +141,15 @@ struct entry_t *list_get(struct list_t *list, char *key) {
         }
         node = node->next;
     }
+	return NULL;
+	
 }
 
 /* Retorna o tamanho (numero de elementos) da lista 
  * Retorna -1 em caso de erro)
  */
 int list_size(struct list_t *list) {
-
+//TODO la vamos nós ao retornar -1 -.-
     return list->size;
 
 }

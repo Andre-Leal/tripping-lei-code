@@ -133,7 +133,7 @@ int list_remove(struct list_t *list, char *key) {
 struct entry_t *list_get(struct list_t *list, char *key) {
 
     if (!list || !key)
-        return -1;
+        return NULL;
 
     struct node_t *node = list->header;
 
@@ -159,9 +159,6 @@ int list_size(struct list_t *list) {
  */
 char **list_get_keys(struct list_t *list) {
 
-    if (!list)
-        return -1;
-
     char **array_key = malloc((list->size+1) * sizeof(char *));
 
     struct node_t *node = list->header;
@@ -178,9 +175,6 @@ char **list_get_keys(struct list_t *list) {
 /* Liberta a memoria alocada por list_get_keys
 */
 void list_free_keys(char **keys) {
-
-    if (!keys)
-        return -1;
 
     int i = 0;
 

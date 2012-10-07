@@ -19,4 +19,6 @@ struct list_t {
     int size;
 };
 
+void erase_all_memory(struct node_t *node);
+
 #endif

@@ -132,9 +132,6 @@ int list_remove(struct list_t *list, char *key) {
  */
 struct entry_t *list_get(struct list_t *list, char *key) {
 
-    if (!list || !key)
-        return NULL;
-
     struct node_t *node = list->header;
 
     while(node != NULL) {
